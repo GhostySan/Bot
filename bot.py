@@ -1,4 +1,4 @@
-TOKEN = 'MTAzNDQ5ODcwNDQxNTE0NjAzNQ.Gt9VZp.nbQ83vZCgci1FTUpnOPQVaTenfHb1CUTJjSDZQ'
+TOKEN = ''
 
 import os
 import asyncio
@@ -26,8 +26,8 @@ async def on_ready():
     activity = discord.Activity(
         type=discord.ActivityType.playing,
         name=".help",
-        details="owo",
-        image="https://i.pinimg.com/originals/5a/45/23/5a45233d40fbf9a988e0a4d4d4f36f4e.png"
+        details="",
+        image=""
     )
     await bot.change_presence(activity=activity)
     
@@ -38,7 +38,7 @@ def tiene_permisos(ctx, miembro):
         return False
     return True
 
-@bot.command(help='mostrar informacion acerca de un usuario en el servidor')
+@bot.command(help='Mostrar informacion acerca de un usuario en el servidor')
 async def info(ctx, member: discord.Member=None):
     if not member:
         # Si no se menciona a nadie, mostrar la información del usuario que llama al comando
@@ -119,7 +119,7 @@ async def cartel(ctx, *, texto):
     # Borramos el archivo temporal
     os.remove("cartel/cartelnuevo.png")
 
-@bot.command()
+@bot.command(help='Crear un meme del boton')
 async def boton(ctx, *, input_str):
     # Divide la cadena de entrada en dos textos separados por una coma
     input_list = input_str.split(',')
@@ -249,7 +249,7 @@ async def avatar(ctx, user: discord.Member = None):
     embed.set_image(url=user.avatar)  # Obtener la URL del avatar del usuario y configurarla en la imagen del embed
     await ctx.send(embed=embed)
 
-@bot.command(help='efecto arcoiris durante 14s')
+@bot.command(help='Efecto arcoiris durante 14s')
 @commands.cooldown(1, 585.71, commands.BucketType.user)
 async def fiesta(ctx):
     role = discord.utils.get(ctx.guild.roles, name='fiesta')
@@ -332,18 +332,7 @@ async def agente(ctx):
     embed.set_image(url=random_agent['displayIcon'])
     await ctx.send(embed=embed)
 
-@bot.command(help='Dice cuantas pajas al dia te haces tu, o a quien menciones')
-async def paja(ctx, usuario: discord.Member = None):
-    num_veces = random.randint(0, 100)  # Genera un número aleatorio entre 0 y 100
-    mensaje = f"{ctx.author.mention} se pajea {num_veces} veces al día"
-    if usuario is not None:
-        mensaje = f"{usuario.mention} se pajea {num_veces} veces al día"
-    embed = discord.Embed(
-        title="Pajer@",
-        description=mensaje,
-        color=0x60f4f4)
-    
-    await ctx.send(embed=embed)
+
 
 @bot.command(help='Crea un nuevo rol con el nombre introducido y te lo asigna, si ya ha sido creado simplemente se asigna')
 async def rol(ctx, nombre_rol):
@@ -488,41 +477,7 @@ async def saludar(ctx, member: discord.Member = None):
             except Exception as e:
                 await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
 
-@bot.command(help="Follarse a alguien")
-async def follar(ctx, member: discord.Member = None):
-    author = ctx.author
-    # Obtener el usuario mencionado en el mensaje
-    mentioned_users = ctx.message.mentions
-    # Verificar si el bot fue mencionado
-    if bot.user in mentioned_users:
-        # Enviar mensaje de advertencia al usuario que mencionó al bot
-        message = f"A mí no me toques los cojones, {author.mention}, o te baneo crack."
-        await ctx.send(message)
-    else:
-        # Si no se menciona a ningún usuario o se menciona a sí mismo
-        if member is None or member.id == author.id:
-            auto_folder = "./autofollar"
-            autogifs = os.listdir(auto_folder)
-            randomautogif = random.choice(autogifs)
-            # Enviar mensaje de abrazo a sí mismo y el gif aleatorio
-            message = f"{author.mention} se ha hecho una paja."
-            try:
-                await ctx.send(message, file=discord.File(f"{auto_folder}/{randomautogif}"))
-            except Exception as e:
-                await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
-        else:
-            # Enviar mensaje de abrazo a otro usuario y el gif aleatorio
-            # Obtener la carpeta de gifs
-            gifs_folder = "./follar"
-            # Obtener la lista de gifs
-            gifs = os.listdir(gifs_folder)
-            # Seleccionar un gif aleatorio
-            randomgif = random.choice(gifs)           
-            message = f"{author.mention} se ha follado a {member.mention}"
-            try:
-                await ctx.send(message, file=discord.File(f"{gifs_folder}/{randomgif}"))
-            except Exception as e:
-                await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
+
 
 @bot.command(help="besar a alguien")
 async def besar(ctx, member: discord.Member = None):
@@ -560,77 +515,7 @@ async def besar(ctx, member: discord.Member = None):
             except Exception as e:
                 await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
 
-@bot.command(help="azotar a alguien")
-async def azotar(ctx, member: discord.Member = None):
-    author = ctx.author
-    # Obtener el usuario mencionado en el mensaje
-    mentioned_users = ctx.message.mentions
-    # Verificar si el bot fue mencionado
-    if bot.user in mentioned_users:
-        # Enviar mensaje de advertencia al usuario que mencionó al bot
-        message = f"A mí no me toques los cojones, {author.mention}, o te baneo crack."
-        await ctx.send(message)
-    else:
-        # Si no se menciona a ningún usuario o se menciona a sí mismo
-        if member is None or member.id == author.id:
-            auto_folder = "./autoazotar"
-            autogifs = os.listdir(auto_folder)
-            randomautogif = random.choice(autogifs)
-            # Enviar mensaje de abrazo a sí mismo y el gif aleatorio
-            message = f"{author.mention} se ha azotado a si mismo, que triste."
-            try:
-                await ctx.send(message, file=discord.File(f"{auto_folder}/{randomautogif}"))
-            except Exception as e:
-                await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
-        else:
-            # Enviar mensaje de abrazo a otro usuario y el gif aleatorio
-            # Obtener la carpeta de gifs
-            gifs_folder = "./azotar"
-            # Obtener la lista de gifs
-            gifs = os.listdir(gifs_folder)
-            # Seleccionar un gif aleatorio
-            randomgif = random.choice(gifs)           
-            message = f"{author.mention} le ha dado unos azotes a  {member.mention}"
-            try:
-                await ctx.send(message, file=discord.File(f"{gifs_folder}/{randomgif}"))
-            except Exception as e:
-                await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
 
-@bot.command(help="chuparsela a alguien")
-async def chupar(ctx, member: discord.Member = None):
-    author = ctx.author
-    # Obtener el usuario mencionado en el mensaje
-    mentioned_users = ctx.message.mentions
-    # Verificar si el bot fue mencionado
-    if bot.user in mentioned_users:
-        # Enviar mensaje de advertencia al usuario que mencionó al bot
-        message = f"A mí no me toques los cojones, {author.mention}, o te baneo crack."
-        await ctx.send(message)
-    else:
-        # Si no se menciona a ningún usuario o se menciona a sí mismo
-        if member is None or member.id == author.id:
-            auto_folder = "./autochupar"
-            autogifs = os.listdir(auto_folder)
-            randomautogif = random.choice(autogifs)
-            # Enviar mensaje de abrazo a sí mismo y el gif aleatorio
-            message = f"{author.mention} literalmente te mamaste kbron@"
-            try:
-                await ctx.send(message, file=discord.File(f"{auto_folder}/{randomautogif}"))
-            except Exception as e:
-                await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
-        else:
-            # Enviar mensaje de abrazo a otro usuario y el gif aleatorio
-            # Obtener la carpeta de gifs
-            gifs_folder = "./chupar"
-            # Obtener la lista de gifs
-            gifs = os.listdir(gifs_folder)
-            # Seleccionar un gif aleatorio
-            randomgif = random.choice(gifs)           
-            message = f"{author.mention} se la ha chupado  a  {member.mention}"
-            try:
-                await ctx.send(message, file=discord.File(f"{gifs_folder}/{randomgif}"))
-            except Exception as e:
-                await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
 
 @bot.command(help="pegarle a alguien")
 async def pegar(ctx, member: discord.Member = None):
@@ -813,7 +698,7 @@ async def rescatar(ctx, member: discord.Member = None):
             except Exception as e:
                 await ctx.send(f"No se pudo enviar el gif, intentalo de nuevo")
 
-API_KEY = 'a77029b2dc9a08c76fdd2bde694d77ec'
+API_KEY = ''
 @bot.command(help="Recomienda una peli aleatoria")
 async def peli(ctx):
     response = requests.get('https://api.themoviedb.org/3/movie/top_rated', 
@@ -847,7 +732,7 @@ async def peli(ctx):
 
 @bot.command(help='Recomienda una serie aleatoria')
 async def serie(ctx):
-    response = requests.get('https://api.themoviedb.org/3/discover/tv?api_key=a77029b2dc9a08c76fdd2bde694d77ec&sort_by=vote_average.desc&vote_count.gte=1000&language=es')
+    response = requests.get('https://api.themoviedb.org/3/discover/tv?api_key=&sort_by=vote_average.desc&vote_count.gte=1000&language=es')
     if response.status_code == 200:
         series = response.json()["results"]
         selected_series = [serie for serie in series if serie["poster_path"] is not None and serie["vote_average"] >= 5]
@@ -857,7 +742,7 @@ async def serie(ctx):
             serie_overview = selected_serie["overview"]
             serie_year = selected_serie["first_air_date"][:4]
             poster_url = "https://image.tmdb.org/t/p/w500" + selected_serie["poster_path"]
-            platforms_response = requests.get(f'https://api.themoviedb.org/3/tv/{selected_serie["id"]}/watch/providers?api_key=a77029b2dc9a08c76fdd2bde694d77ec')
+            platforms_response = requests.get(f'https://api.themoviedb.org/3/tv/{selected_serie["id"]}/watch/providers?api_key=')
             if platforms_response.status_code == 200:
                 platforms = platforms_response.json().get("results", {}).get("ES", {}).get("flatrate", [])
                 if len(platforms) > 0:
@@ -875,9 +760,9 @@ async def serie(ctx):
     else:
         await ctx.send("Lo siento, no se pudo obtener información de series.")        
 
-CLIENT_ID = '8f7a325851ba47558e685ef0e1fe83b3'
-CLIENT_SECRET = 'e7af961e943a4c9b8b13f2a51d0b594b'
-USERNAME = '31bwgh6c4ffheilmseih44wfgb3i'
+CLIENT_ID = ''
+CLIENT_SECRET = ''
+USERNAME = ''
 SCOPE = 'playlist-read-private'
 @bot.command(help="Muestra todas mis playlists de Spotify")
 async def playlist(ctx):
@@ -905,7 +790,7 @@ async def playlist(ctx):
     # Enviar el embed al canal de Discord
     await ctx.send(embed=embed)
 
-PLAYLIST_ID = '5V6qYQMPm0jIwkXkUzhp4E'
+PLAYLIST_ID = ''
 @bot.command(help="Te recomienda una canción aleatoria de mi Spotify")
 async def tema(ctx):
     # Autenticación en la API de Spotify
@@ -937,19 +822,19 @@ async def tema(ctx):
     # Enviar el embed al canal de Discord
     await ctx.send(embed=embed)
 
-@bot.command(help='Dice cuanto tiempo queda para tu cumple, formato: dd/mm/aa')
-async def cumple(ctx, fecha_cumple_str):
-    formato_fecha = "%d/%m/%y"
+@bot.command(help='Dice cuanto tiempo queda para tu cumple, formato: dd/mm/aaaa')
+async def cumple(ctx, fecha_nacimiento_str):
+    formato_fecha = "%d/%m/%Y"
+    fecha_actual = datetime.now()
+
     try:
-        fecha_cumple = datetime.strptime(fecha_cumple_str, formato_fecha)
+        fecha_nacimiento = datetime.strptime(fecha_nacimiento_str, formato_fecha)
+        fecha_cumple = fecha_nacimiento.replace(year=fecha_actual.year)
+        if fecha_cumple < fecha_actual:
+            fecha_cumple = fecha_cumple.replace(year=fecha_actual.year + 1)
     except ValueError:
         await ctx.send("La fecha proporcionada no está en el formato correcto.")
         return
-
-    fecha_actual = datetime.now()
-
-    if fecha_cumple < fecha_actual:
-        fecha_cumple = fecha_cumple.replace(year=fecha_actual.year + 1)
 
     tiempo_faltante = fecha_cumple - fecha_actual
     dias_faltantes = tiempo_faltante.days
@@ -957,28 +842,17 @@ async def cumple(ctx, fecha_cumple_str):
     minutos_faltantes = (tiempo_faltante.seconds // 60) % 60
     segundos_faltantes = tiempo_faltante.seconds % 60
 
-    mensaje_respuesta = f"Faltan {dias_faltantes} días, {horas_faltantes} horas, {minutos_faltantes} minutos y {segundos_faltantes} segundos para tu cumpleaños"
+    # Cálculo de la edad
+    edad = fecha_actual.year - fecha_nacimiento.year
+    if fecha_actual.month < fecha_nacimiento.month or (fecha_actual.month == fecha_nacimiento.month and fecha_actual.day < fecha_nacimiento.day):
+        edad -= 1
+    
+    if dias_faltantes == 365:
+        mensaje_respuesta = f"¡Hoy es tu cumpleaños! Felicidades por cumplir {edad} años."
+    else:
+        mensaje_respuesta = f"Faltan {dias_faltantes} días, {horas_faltantes} horas, {minutos_faltantes} minutos y {segundos_faltantes} segundos para tu cumpleaños. ¡Y cumplirás {edad+1} años!"
 
     embed = discord.Embed(title="Tiempo Restante para tu Cumpleaños", description=mensaje_respuesta, color=0x60f4f4)
-    await ctx.send(embed=embed)
-
-@bot.command(help='Pa ver cuanto te mide el pito')
-async def pito(ctx, user: discord.Member = None):
-    if user is None:
-        user = ctx.author
-    nose_size = random.randint(0, 20)
-    if nose_size == 0:
-        nose_string = '(|), creo que alguien aqui no tiene pito'
-    else:
-        nose_string = '8' + ('=' * nose_size) + 'D'
-
-
-    embed = discord.Embed(
-        title=f"pito de {user.display_name}",
-        description=nose_string,
-        color=0x60f4f4)
-    
-
     await ctx.send(embed=embed)
 
 @bot.command(help='Muestra un link de invitacion')
@@ -987,7 +861,7 @@ async def invitar(ctx):
     embed.add_field(name="Invitación", value="[Haz clic aquí para invitar](https://discord.com/api/oauth2/authorize?client_id=1034498704415146035&permissions=8&scope=bot)")
     await ctx.send(embed=embed)
 
-@bot.command(help='Responde con si, no, probablemente y porsupuesto que si')
+@bot.command(help='Responde con si, no, probablemente y porsupuesto que si de forma aleatoria')
 async def al(ctx):
     responses = ["sí", "no", "probablemente", "por supuesto que sí"]
     response = random.choice(responses)
@@ -1029,48 +903,14 @@ async def riotid(ctx, *, text):
     # Envía el mensaje embed
     await ctx.send(embed=idriot)
 
-@bot.command(help='Simplemente tetas')
-async def tetas(ctx):
-    embed = discord.Embed(title="¿TETAS?", color=0x60f4f4)
-    embed.add_field(name="Simplemente tetas", value="""Tetas
-tetitas
-tetazas
-tetorras
-tetotas
-tetarracas
-tetacas
-tetuzas 
-teturras
-tetungas
-tetillas 
-bufas
-bufarras 
-bufarracas 
-bufoncias 
-mamelungas 
-mamelones 
-melones 
-domingas 
-bubalongas 
-babongas 
-pechugas 
-peras 
-peritas 
-perolas 
-mamellas 
-tetolas 
-gemelas 
-maracas 
-bazucas 
-petacas.""")
-    await ctx.send(embed=embed)
+
 
 """@bot.command()
 async def tienda(ctx, riotid):
     # hacer una llamada a la API de Riot para obtener los datos de la tienda
     riot_id = riotid.replace("#", "%23") # Reemplazar el símbolo '#' por su equivalente en la URL
     url = f"https://pd.eu.a.pvp.net/store/v3/storefront/{riot_id}"
-    headers = {"X-Riot-Token": "RGAPI-994a18ec-ce5a-4aba-a115-e4bb1c3b04a0"} # Reemplazar "insertar_tu_token_aqui" con tu token personal de Riot Games
+    headers = {"X-Riot-Token": ""} # Reemplazar "insertar_tu_token_aqui" con tu token personal de Riot Games
     response = requests.post(url, headers=headers)
     print(response.text)
     if response.status_code == 200:
@@ -1144,30 +984,7 @@ async def rango(ctx, riotid):
     embed.add_field(name="Pickrate", value=f"{pickrate:.2%}", inline=True)
     await ctx.send(embed=embed)"""
 
-"""@bot.command(help="Envia un abrazo ")
-async def abrazo(ctx, user: discord.Member = None):
-    search_term = "anime-hugs"
-    if user is None:
-        message = f"{ctx.author.mention} se ha dado un abrazo a sí mismo. ¡No te olvides de cuidarte!"
-    else:
-        message = f"{ctx.author.mention} te ha enviado un abrazo {random.choice(['cálido', 'amoroso', 'fuerte', 'amistoso'])}, {user.mention} 💖"
 
-    api_key = "oUysTlUjnmNyxqptVSq1R38sf8g7Gv5L"
-    url = f"https://api.giphy.com/v1/gifs/random?api_key={api_key}&tag={search_term}&rating=g"
-    response = requests.get(url)
-    data = response.json().get('data')
-    
-    if data is None:
-        await ctx.send("Lo siento, no pude encontrar un gif de abrazo en este momento.")
-        return
-    
-    gif_url = data.get('url')
-    if gif_url is None:
-        await ctx.send("Lo siento, no pude encontrar un gif de abrazo en este momento.")
-        return
-    
-    await ctx.send(message)
-    await ctx.send(gif_url)"""
 
 """ID_DEL_CANAL = 947128034392166501 # Reemplazar 123456789 con el ID del canal donde quieres enviar el mensaje
 
